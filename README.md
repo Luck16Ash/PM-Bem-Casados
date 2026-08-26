@@ -1,97 +1,254 @@
-# PROJETO-SEMESTRAL-4
+<div align="center">
 
-# Reestruturação Arquitetural — Projeto Semestral FATEC (DSM)
+# 🧭 Reestruturação Arquitetural — Projeto Semestral FATEC
 
-> **Status:** em definição. Este documento descreve a *proposta de arquitetura* apresentada ao grupo, não o produto final. Regras de negócio, telas e escopo completo ainda serão fechados coletivamente. As seções de **riscos** abaixo são **hipotéticas** — não existe ainda um levantamento real de bugs/incidentes, pois o sistema está em fase de reestruturação, não de operação.
+## Sistema de Gestão (Web + Mobile) sobre uma arquitetura em camadas
+
+**Proposta de reestruturação de um sistema acadêmico PHP para uma arquitetura em camadas: Angular/Ionic → REST (JWT) → Java/Spring Boot → PostgreSQL, com uma trilha de dados em Python alimentando analytics.**
+
+<br>
+
+<img src="https://img.shields.io/badge/Projeto-Acadêmico-0F172A?style=for-the-badge" />
+<img src="https://img.shields.io/badge/FATEC-Zona%20Sul-2563EB?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Curso-DSM-1D4ED8?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Status-Em%20definição-C79A2E?style=for-the-badge" />
+
+<br><br>
+
+### ⚙️ Stack Principal
+
+<img src="https://img.shields.io/badge/Angular-Frontend-DD0031?style=for-the-badge&logo=angular&logoColor=white" />
+<img src="https://img.shields.io/badge/Ionic-Mobile-3880FF?style=for-the-badge&logo=ionic&logoColor=white" />
+<img src="https://img.shields.io/badge/Java-Backend-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" />
+<img src="https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?style=for-the-badge&logo=springboot&logoColor=white" />
+<img src="https://img.shields.io/badge/Python-Analytics-3776AB?style=for-the-badge&logo=python&logoColor=white" />
+
+<br><br>
+
+### 🗄️ Banco, Deploy e Segurança
+
+<img src="https://img.shields.io/badge/PostgreSQL-Relacional-4169E1?style=for-the-badge&logo=postgresql&logoColor=white" />
+<img src="https://img.shields.io/badge/Supabase-Produção-3FCF8E?style=for-the-badge&logo=supabase&logoColor=white" />
+<img src="https://img.shields.io/badge/Docker-Containers-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
+<img src="https://img.shields.io/badge/Auth-JWT%20%2B%20Spring%20Security-F59E0B?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Banco-Relacional-10B981?style=for-the-badge" />
+
+<br><br>
+
+### 🧩 Organização do Sistema
+
+<img src="https://img.shields.io/badge/Arquitetura-Camadas-7C3AED?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Foco-Reorganização%20Arquitetural-020617?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Web-Angular-EC4899?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Mobile-Ionic%2FAndroid-64748B?style=for-the-badge" />
+<img src="https://img.shields.io/badge/Dados-Python%20ETL-FACC15?style=for-the-badge" />
+
+</div>
 
 ---
 
-## 1. Objetivo Principal
+## 📌 Sobre o projeto
 
-Substituir um sistema acadêmico originalmente escrito em PHP (2º semestre), que acumulou tecnologia solta e responsabilidades misturadas ao longo dos semestres, por uma arquitetura em camadas com responsabilidade única por tecnologia — reaproveitando o mesmo backend para Web e Mobile e gerando dados operacionais reais que alimentam uma camada de analytics.
+Este repositório documenta a **proposta de reestruturação arquitetural** de um sistema acadêmico do curso de **Desenvolvimento de Software Multiplataforma (DSM) da FATEC Zona Sul**, unindo três disciplinas em um único projeto:
 
-O projeto une três disciplinas em um único sistema, em vez de três entregas isoladas:
+- **Laboratório Web** — frontend Angular consumindo REST;
+- **Mobile I** — app Ionic + Angular, compilável para Android;
+- **Integração e Entrega Contínua** — Git, GitHub, CI/CD, Docker e deploy.
 
-| Disciplina | Frente |
+O núcleo comum às três frentes é **Java + Spring Boot + PostgreSQL**.
+
+> ⚠️ Este documento descreve uma **proposta em andamento**, não o produto final. Regras de negócio, telas e escopo completo do sistema ainda serão fechados pelo grupo. A seção **Riscos Hipotéticos** (item 10) é uma análise técnica preventiva, não um relatório de bugs reais — o sistema ainda não está em operação.
+
+---
+
+## 🎯 Problema identificado
+
+O sistema anterior nasceu em PHP no 2º semestre e, ao longo dos semestres seguintes, acumulou tecnologia solta e decisões tomadas sob prazo:
+
+| Problema | Impacto na operação |
 |---|---|
-| Laboratório Web | Frontend Angular consumindo REST |
-| Mobile I | App Ionic + Angular (compilável para Android) |
-| Integração e Entrega Contínua | Git, GitHub, CI/CD, Docker, Deploy |
+| Alto acoplamento entre camadas | Alterações em um ponto quebram outros sem aviso |
+| Responsabilidades misturadas por tecnologia | Difícil saber onde cada regra de negócio "mora" |
+| Sem autenticação estruturada | Nenhum controle formal de quem pode fazer o quê |
+| Integração pouco clara entre partes | Fluxo de dados difícil de rastrear e depurar |
+| Nenhuma camada de dados/analytics | Sistema não gera indicadores de uso próprios |
 
-Núcleo comum às três frentes: **Java + Spring Boot + PostgreSQL**.
+O diagnóstico do grupo: **o problema não é ter várias tecnologias — é não ter uma função clara para cada uma.**
 
-## 2. Problema de Origem
+---
 
-O sistema anterior (PHP/EJS) não tinha função clara por tecnologia: alto acoplamento, código acumulado, responsabilidades misturadas, sem autenticação estruturada e integração pouco clara entre as partes. O diagnóstico do grupo é que o problema **não é ter várias tecnologias, é não ter uma função definida para cada uma**.
+## 🔄 Mudança de direção
 
-## 3. Arquitetura Proposta
+A proposta não parte de uma reescrita completa nem de "trocar tecnologia por trocar". A virada é conceitual: em vez de continuar empilhando código sobre a base PHP, o sistema é reorganizado por **responsabilidade**, camada por camada, mantendo os mesmos conceitos que parte do grupo já domina (boa parte já usa Node.js/Express — a tabela de mapeamento na seção 5 mostra a equivalência).
 
+```txt
+antes → tecnologias soltas, sem hierarquia clara
+depois → Web/Mobile → REST (JWT) → Spring Boot → PostgreSQL → Python (analytics)
 ```
-Angular (Web) ─┐
-                ├─► REST API (JWT) ─► Spring Boot ─► PostgreSQL
-Ionic (Mobile) ─┘                         │
-                                           └─► Python (ETL/Analytics/Dashboard)
+
+---
+
+## 🧭 Fluxo central do sistema (MVP)
+
+```txt
+LOGIN (JWT)
+    ↓
+LISTAGEM DE PRODUTOS
+    ↓
+CRIAÇÃO DE PEDIDO
+    ↓
+CONSULTA DE PEDIDOS
+    ↓
+DADOS OPERACIONAIS → PYTHON → ANALYTICS
 ```
 
-- Cliente Web e Mobile **nunca** acessam o banco diretamente — toda regra de negócio passa pelo Spring Boot.
-- Autenticação stateless via **JWT** (Spring Security), sem sessão em memória no backend.
-- Python opera como consumidor secundário dos dados gerados pela operação (não é o sistema transacional).
+Esse fluxo não representa o produto final — é a menor fatia que atravessa **todas** as camadas (login → listar produto → criar pedido, ponta a ponta) antes de empilhar o restante do escopo.
 
-### Stack
+---
 
-| Camada | Tecnologia |
+## 🧱 Tecnologias utilizadas
+
+| Categoria | Tecnologias |
 |---|---|
 | Frontend Web | Angular |
 | Mobile | Ionic + Angular (build Android) |
-| Backend | Java + Spring Boot + Spring Security (JWT) |
+| Backend | Java + Spring Boot |
+| Segurança | Spring Security + JWT stateless |
 | Banco de dados | PostgreSQL (produção via Supabase) |
 | Dados / Analytics | Python (ETL, tratamento, dashboards) |
 | Containerização | Docker / docker-compose (backend, database, python) |
-| CI/CD | Git, GitHub, Pull Requests, pipeline de CI |
-| Deploy | Frontend e mobile hospedados separadamente; backend em serviço próprio; banco via Supabase |
+| Versionamento | Git e GitHub (Pull Requests obrigatórios) |
+| CI/CD | Pipeline: build → testes → Docker → deploy |
 
 ### Mapeamento conceitual (para quem já usa Node.js/Express)
 
-A proposta reaproveita conceitos já conhecidos do grupo (Node/Express e do PHP anterior), apenas realocando onde cada peça mora — não é uma reintrodução do zero.
+| Conhecido (PHP / Node.js) | Novo stack | Papel |
+|---|---|---|
+| Rotas Express | Controllers Spring Boot | Recebe a requisição HTTP |
+| Middleware de auth | Filtro JWT (Spring Security) | Valida quem está chamando |
+| Models (Mongoose/Sequelize) | Entidades JPA | Representa a tabela no banco |
+| `.env` | `application.properties` / variáveis de ambiente | Configuração por ambiente |
 
-## 4. MVP Mínimo
+---
 
-Fatia mínima que atravessa todas as camadas (Angular/Ionic → REST → Spring Boot → PostgreSQL) com login funcional, antes de qualquer escopo adicional.
+## 🏗️ Arquitetura
 
-**Entidades:** `Usuario(id, nome, email, senha_hash, role)`, `Cliente(id, nome, contato)`, `Produto(id, nome, preco, estoque)`, `Pedido(id, cliente_id, status, criado_em)`, `ItemPedido(id, pedido_id, produto_id, qtd)`
+O sistema segue uma arquitetura em camadas, com separação explícita entre apresentação, API, regras de negócio e dados:
 
-**Endpoints:**
+```txt
+Angular (Web) ─┐
+                ├─► REST API (JWT) ─► Spring Boot ─► PostgreSQL
+Ionic (Mobile) ─┘                         │
+                                           └─► Python (ETL / Analytics / Dashboard)
 ```
-POST   /auth/login
-GET    /produtos
-POST   /produtos        (ADMIN)
-GET    /pedidos
-POST   /pedidos         (CLIENTE)
-GET    /pedidos/:id
+
+- Web e Mobile **nunca** acessam o banco diretamente — toda regra de negócio passa pelo backend Java.
+- Autenticação **stateless**: nenhuma sessão em memória no servidor, apenas validação de token por requisição.
+- Python opera como consumidor secundário dos dados operacionais, não como sistema transacional.
+
+Estrutura de referência no frontend Angular:
+
+```txt
+components/     → header, navbar, footer, product-card
+pages/          → home, products, login
+services/       → api.service.ts, auth.service.ts
+guards/         → auth.guard.ts
 ```
 
-## 5. Autenticação & Autorização
+---
 
-Fluxo: credenciais → validação no PostgreSQL via Spring Security → JWT assinado (id + role) → cliente reenvia via `Authorization: Bearer <token>` → filtro do Spring Security libera/nega por role.
+## 🧩 Módulos previstos no MVP
 
-| Papel | Permissões |
+### 🔐 Autenticação
+
+- login com e-mail e senha (`POST /auth/login`);
+- geração de JWT assinado (id + role) via Spring Security;
+- token reenviado em `Authorization: Bearer <token>`;
+- liberação/negação de rotas por role em filtro do Spring Security.
+
+### 🛒 Catálogo e pedidos
+
+- listagem de produtos (`GET /produtos`);
+- cadastro de produto restrito a ADMIN (`POST /produtos`);
+- criação de pedido pelo cliente (`POST /pedidos`);
+- consulta de pedidos, geral (ADMIN) ou próprios (CLIENTE).
+
+### 📱 Protótipo mobile
+
+- Ionic + Angular, compilável para Android;
+- navegação real entre telas (login → produtos → produto → carrinho → confirmação → pedidos);
+- cada ação dispara uma chamada real à mesma API usada pelo Web — não há backend separado para mobile.
+
+### 📊 Dados & Analytics
+
+Pipeline: `PostgreSQL → Python → ETL → Tratamento → Analytics → Dashboard`. Indicadores previstos: produto mais vendido, faturamento mensal, ticket médio, estoque baixo.
+
+---
+
+## 🔐 Permissões
+
+```txt
+ADMIN
+CLIENTE
+```
+
+| Perfil | Acesso principal |
 |---|---|
 | ADMIN | Cadastrar/editar produtos, ver todos os pedidos |
 | CLIENTE | Ver produtos, criar e ver os próprios pedidos |
 
-Decisão já registrada na proposta: **não** usar `localStorage` no Angular (vulnerável a XSS) — token em memória (serviço Angular) + refresh via cookie `httpOnly`; no Ionic, usar secure storage nativo, não o storage do WebView.
+> Onde **não** guardar o token: `localStorage` no Angular é vulnerável a XSS. Preferir token em memória (serviço Angular) + refresh via cookie `httpOnly`. No Ionic, usar plugin de secure storage nativo — não o storage do WebView.
 
-## 6. Banco de Dados
+---
 
-Modelo relacional: `clientes 1:N pedidos`, `pedidos 1:N itens_pedido`, `itens_pedido N:1 produtos`, `produtos N:1 categorias`. PostgreSQL em produção via Supabase.
+## 🛣️ Rotas mínimas do MVP
 
-## 7. Dados & Analytics
+| Rota | Método | Acesso | Descrição |
+|---|---|---|---|
+| `/auth/login` | POST | Público | Autenticação e emissão de JWT |
+| `/produtos` | GET | Autenticado | Lista de produtos |
+| `/produtos` | POST | ADMIN | Cadastro de produto |
+| `/pedidos` | GET | Autenticado | Lista de pedidos (próprios ou todos, por role) |
+| `/pedidos` | POST | CLIENTE | Criação de pedido |
+| `/pedidos/:id` | GET | Autenticado | Detalhe de um pedido |
 
-Pipeline: `PostgreSQL → Python → ETL → Tratamento → Analytics → Dashboard`. Indicadores previstos: produto mais vendido, faturamento mensal, ticket médio, estoque baixo.
+---
 
-## 8. Deploy
+## 🗄️ Banco de dados
 
+O projeto utiliza **PostgreSQL**, modelo relacional:
+
+```txt
+clientes (id PK, nome)
+    └── 1:N → pedidos (id PK, cliente_id FK)
+                  └── 1:N → itens_pedido (id PK, pedido_id FK, produto_id FK)
+                                  └── N:1 → produtos (id PK, categoria_id FK)
 ```
+
+Entidades mínimas do MVP: `Usuario(id, nome, email, senha_hash, role)`, `Cliente(id, nome, contato)`, `Produto(id, nome, preco, estoque)`, `Pedido(id, cliente_id, status, criado_em)`, `ItemPedido(id, pedido_id, produto_id, qtd)`.
+
+Em produção, o PostgreSQL é hospedado via **Supabase** — plataforma construída sobre PostgreSQL, não apenas um banco gerenciado.
+
+---
+
+## 🐳 Containerização e CI/CD
+
+```txt
+docker-compose.yml
+├─ backend     (Spring Boot)
+├─ database    (PostgreSQL)
+└─ python      (ETL / analytics)
+```
+
+Pipeline de CI/CD: `Codar → Git → Pull Request → CI → Testes → Build → Docker → Deploy → Produção`.
+
+> Docker padroniza o ambiente entre as máquinas do grupo — não elimina a necessidade de tê-lo instalado localmente.
+
+---
+
+## ⚙️ Deploy
+
+```txt
 Internet
   ├── Frontend Angular (hospedagem própria)
   └── Mobile (build Android)
@@ -102,80 +259,87 @@ Internet
         └── Python (ETL / Analytics / Dashboard)
 ```
 
-## 9. Divisão do Grupo
+---
+
+## ▶️ Como executar localmente *(referência — repositório e comandos definitivos a confirmar pelo grupo)*
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/<organizacao-ou-usuario>/<nome-do-repo>.git
+```
+
+Acesse a pasta:
+
+```bash
+cd <nome-do-repo>
+```
+
+Suba os serviços com Docker:
+
+```bash
+docker-compose up -d
+```
+
+Backend (Spring Boot) e frontend (Angular) sobem como containers separados, definidos no `docker-compose.yml`.
+
+---
+
+## 👥 Divisão do grupo
 
 | Frente | Responsabilidades |
 |---|---|
-| Backend | Java, Spring Boot, Spring Security/JWT, PostgreSQL, regras de negócio |
-| Mobile/Frontend | Angular, Ionic, Guards/Interceptors, componentes, integração com API |
-| Dados | Python, SQL, ETL, Analytics, Dashboard |
-| Todos | Git/GitHub, Pull Requests, CI/CD, documentação |
+| **Backend** | Java, Spring Boot, Spring Security/JWT, PostgreSQL, regras de negócio |
+| **Mobile/Frontend** | Angular, Ionic, Guards/Interceptors, componentes, integração com API |
+| **Dados** | Python, SQL, ETL, Analytics, Dashboard |
+| **Todos** | Git/GitHub, Pull Requests, CI/CD, documentação |
 
-## 10. Status
+---
 
-| Definido | Em definição | Possíveis evoluções |
+## 📅 Status do projeto
+
+| Definido ✅ | Em definição 🟡 | Possíveis evoluções 🔵 |
 |---|---|---|
 | Arquitetura em camadas | Funcionalidades finais do sistema | Analytics e dashboards avançados |
-| Stack completa | Regras de negócio específicas | Automações e notificações |
+| Stack completa (Angular, Ionic, Java/Spring, PostgreSQL, Python, Docker) | Regras de negócio específicas | Automações e notificações |
 | Responsabilidade de cada camada | Escopo definitivo de telas e relatórios | Novas funcionalidades sob demanda |
 | MVP mínimo (login, produtos, pedidos) | | |
 
-## 11. Resultado Esperado
+---
 
-Um sistema em produção (acessível pela internet) com backend único servindo Web e Mobile, autenticação por papel funcionando desde o MVP, dados operacionais reais alimentando uma camada de analytics, pipeline de CI/CD funcional (build, testes, Docker, deploy) e um portfólio técnico mais próximo de uma arquitetura profissional do que o projeto PHP original — cumprindo simultaneamente os requisitos de três disciplinas (Laboratório Web, Mobile I, Integração e Entrega Contínua).
+## ⚠️ Riscos hipotéticos e mitigações propostas
+
+> Não existe ainda uma lista real de problemas — o projeto está em fase de proposta, não de operação. A tabela abaixo é uma análise técnica preventiva (o que tende a dar errado nesse tipo de arquitetura, com esse nível de maturidade de equipe), a ser substituída por incidentes reais conforme o grupo avança.
+
+| Área | Risco hipotético | Gravidade | Mitigação proposta |
+|---|---|---|---|
+| Segurança | JWT sem mecanismo de revogação | Alto | TTL curto + refresh token com rotação |
+| Segurança | Hash de senha fraco ou ausente | Crítico | BCrypt explícito (padrão Spring Security) |
+| Segurança | Segredos versionados no Git (`docker-compose.yml`) | Crítico | Variáveis de ambiente + `.gitignore` |
+| Banco de dados | Condição de corrida no decremento de `estoque` | Alto | Lock otimista (`@Version`) ou `SELECT ... FOR UPDATE` |
+| Banco de dados | Criação de pedido + itens sem transação atômica | Alto | `@Transactional` no service de criação de pedido |
+| Banco de dados | Ausência de ferramenta de migração de schema | Médio | Adotar Flyway/Liquibase desde o MVP |
+| Arquitetura | Python consultando o banco transacional sem isolamento | Médio | Job agendado fora de pico ou réplica de leitura |
+| DevOps | Etapa "Testes" no CI sem cobertura mínima obrigatória | Médio | Definir limiar de cobertura e falhar build abaixo dele |
+| Acadêmico | Escopo de "evoluções" consumir tempo do MVP obrigatório | Alto | Congelar o MVP antes de iniciar itens de evolução |
 
 ---
 
-## 12. Riscos Hipotéticos e Mitigações Propostas
+## 📈 Resultado esperado
 
-**Aviso:** não existe ainda uma lista real de problemas — o projeto está em fase de proposta, não de operação. A lista abaixo é uma análise técnica preventiva (o que tende a dar errado nesse tipo de arquitetura, com esse nível de maturidade de equipe), não um relatório de incidentes reais. Ela deve ser revisada e substituída à medida que o grupo fechar as regras de negócio.
-
-### Segurança
-
-| Risco hipotético | Gravidade | Mitigação proposta |
-|---|---|---|
-| Token JWT sem mecanismo de revogação — comprometido antes de expirar, continua válido | Alto | TTL curto (ex.: 15 min) + refresh token com rotação; lista de revogação (blacklist/whitelist) se necessário |
-| Hash de senha fraco ou ausente (ex.: MD5/SHA sem salt) | Crítico | Definir explicitamente BCrypt (padrão do Spring Security) e documentar no README técnico do backend |
-| CORS mal configurado (bloqueando tudo em dev ou liberando `*` em produção) | Médio | Definir política de CORS explícita por ambiente antes do primeiro deploy |
-| Mass assignment / over-posting em endpoints `POST/PUT` sem DTOs de entrada | Alto | Usar DTOs de request separados das entidades JPA; nunca expor entidade diretamente |
-| Segredos (senha do banco, chave de assinatura do JWT) hardcoded no `docker-compose.yml` ou versionados no Git | Crítico | Variáveis de ambiente + `.env` no `.gitignore` + secrets do provedor de deploy |
-
-### Banco de Dados
-
-| Risco hipotético | Gravidade | Mitigação proposta |
-|---|---|---|
-| Condição de corrida ao decrementar `estoque` em pedidos simultâneos (lost update) | Alto | Lock otimista (`@Version`) ou transação com `SELECT ... FOR UPDATE` na baixa de estoque |
-| Criação de `Pedido` + `ItemPedido` sem limite de transação — falha parcial deixa pedido órfão | Alto | `@Transactional` no service que cria pedido, garantindo atomicidade |
-| Ausência de estratégia de migração de schema (Flyway/Liquibase) entre máquinas do grupo | Médio | Adotar Flyway desde o MVP para versionar o schema junto com o código |
-| Consultas sem paginação em `GET /produtos` e `GET /pedidos` conforme a base cresce | Médio | Paginação (`Pageable`) desde o MVP, mesmo com poucos dados hoje |
-| Cenário de banco vazio não tratado (ex.: dashboard Python quebrando sem dados) | Baixo | Testar explicitamente os fluxos de analytics com base vazia/parcial |
-
-### Arquitetura / Escalabilidade
-
-| Risco hipotético | Gravidade | Mitigação proposta |
-|---|---|---|
-| Python (ETL/Analytics) consultando o mesmo PostgreSQL transacional sem isolamento | Médio | Job agendado fora de horário de pico, ou réplica de leitura se o volume justificar |
-| Ausência de versionamento de API (`/produtos` sem `/v1/`) dificultando evolução futura | Baixo | Prefixar rotas com versão desde o início custa pouco e evita breaking changes depois |
-| Nenhum rate limiting/API gateway — endpoint público exposto sem limite de chamadas | Médio | Rate limiting básico no Spring (bucket4j ou filtro simples) antes do deploy público |
-
-### DevOps / Deploy
-
-| Risco hipotético | Gravidade | Mitigação proposta |
-|---|---|---|
-| Pipeline de CI com etapa "Testes" nominal, mas sem cobertura mínima obrigatória | Médio | Definir um limiar mínimo de cobertura e falhar o build abaixo dele |
-| Limites do tier gratuito do Supabase (conexões simultâneas, cold start) não avaliados antes do deploy | Médio | Validar limites do plano gratuito com a carga esperada do MVP antes da apresentação |
-| `docker-compose.yml` funcionando localmente mas divergente do ambiente de deploy real | Alto | Usar a mesma imagem Docker do backend em dev e produção, não builds distintos |
-
-### Processo / Acadêmico
-
-| Risco hipotético | Gravidade | Mitigação proposta |
-|---|---|---|
-| Escopo de "possíveis evoluções" crescer e consumir tempo do MVP obrigatório | Alto | Congelar o MVP antes de iniciar qualquer item da coluna "possíveis evoluções" |
-| Múltiplos integrantes editando o mesmo módulo do monólito Spring Boot em paralelo | Médio | Pacotes por domínio (auth, produtos, pedidos) bem isolados + PR obrigatório por feature |
-| Regras de negócio "em definição" ainda não fechadas na data da banca | Alto | Definir uma data-limite interna para fechar regras de negócio, anterior ao prazo oficial |
+Um sistema em produção, acessível pela internet, com backend único servindo Web e Mobile, autenticação por papel funcionando desde o MVP, dados operacionais reais alimentando uma camada de analytics, pipeline de CI/CD funcional (build, testes, Docker, deploy) e um portfólio técnico mais próximo de uma arquitetura profissional — cumprindo simultaneamente os requisitos das três disciplinas envolvidas.
 
 ---
 
-## 13. Licença e Autores
+## 📌 Observações importantes
 
-Projeto acadêmico — Tecnologia em Desenvolvimento de Software Multiplataforma (DSM), FATEC Zona Sul.
+- Este é um documento de **proposta arquitetural**, não a especificação final do produto.
+- O escopo completo de telas, relatórios e regras de negócio ainda será definido pelo grupo.
+- A lista de riscos hipotéticos deve ser revisada e substituída por casos reais assim que o projeto entrar em desenvolvimento ativo.
+- Nenhuma credencial real deve ser versionada — usar `.env` local e variáveis de ambiente no provedor de deploy.
+
+---
+
+## 🎓 Contexto acadêmico
+
+Projeto semestral do curso de **Desenvolvimento de Software Multiplataforma (DSM)**, FATEC Zona Sul, integrando as disciplinas de Laboratório Web, Mobile I e Integração e Entrega Contínua em um único sistema.
