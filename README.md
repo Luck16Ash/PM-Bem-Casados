@@ -35,6 +35,12 @@
 
 <br><br>
 
+## 📋 Gestão do Projeto
+
+O desenvolvimento e acompanhamento das tarefas são realizados através do GitHub Projects.
+
+👉 [Acessar o Project](https://github.com/users/Luck16Ash/projects/2/views/1)
+
 ### 🧩 Organização do Sistema
 
 <img src="https://img.shields.io/badge/Arquitetura-Camadas-7C3AED?style=for-the-badge" />
