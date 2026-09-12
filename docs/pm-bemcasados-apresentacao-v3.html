@@ -1,0 +1,1019 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>PM Bem-Casados · Apresentação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;1,500;1,600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Tokens ─────────────────────────────────────────────────── */
+:root {
+  --cream:   #FBF3DF;
+  --paper:   #FFFDF7;
+  --navy:    #1C2B49;
+  --coral:   #DD6E56;
+  --gold:    #E8A93A;
+  --green:   #2E7D5B;
+  --red:     #C0392B;
+  --ink:     #29435F;
+  --muted:   #65758A;
+  --line:    #E5D7BD;
+  --soft-blue:   #E8F1F7;
+  --soft-coral:  #F9EAE6;
+  --soft-gold:   #FDF3DC;
+  --soft-green:  #E4F0EB;
+  --sans: 'Poppins', sans-serif;
+  --serif: 'Lora', serif;
+}
+
+/* ── Reset / base ────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-family: var(--sans); color: var(--ink); }
+body { background: #E8E0D0; }
+
+/* ── Slide container ─────────────────────────────────────────── */
+/* 210×148 mm @ 96dpi ≈ 794×561 px (A4 paisagem) */
+.slide {
+  width: 794px;
+  min-height: 561px;
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+  margin: 28px auto;
+  box-shadow: 0 8px 40px rgba(0,0,0,.18);
+  display: flex;
+  flex-direction: column;
+  page-break-after: always;
+  break-after: page;
+}
+
+/* ── Barra tricolor superior ─────────────────────────────────── */
+.slide::before {
+  content: '';
+  display: block;
+  height: 6px;
+  background: linear-gradient(90deg, var(--navy) 0 34%, var(--coral) 34% 62%, var(--gold) 62% 100%);
+  flex: none;
+}
+
+/* ── Rodapé fixo ─────────────────────────────────────────────── */
+.slide-footer {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  border-top: 1px solid var(--line);
+  background: var(--paper);
+}
+.footer-label {
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.footer-label b { color: var(--navy); }
+.page-badge {
+  background: var(--navy);
+  color: white;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 99px;
+  letter-spacing: .04em;
+}
+
+/* ── Área de conteúdo ────────────────────────────────────────── */
+.slide-body {
+  flex: 1;
+  padding: 22px 26px 36px;
+  position: relative;
+}
+
+/* ── Kicker + título padrão ──────────────────────────────────── */
+.kicker {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--coral);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.kicker.navy { color: var(--navy); }
+h2 {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1.1;
+  letter-spacing: -.025em;
+  margin-bottom: 6px;
+}
+.lede {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.55;
+  max-width: 620px;
+  margin-bottom: 16px;
+}
+
+/* ── Cards genéricos ─────────────────────────────────────────── */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+.card p, .card li {
+  font-size: 10.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.card ul { padding-left: 14px; }
+.card ul li { margin-bottom: 3px; }
+
+/* ── Tag / badge ─────────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 99px;
+  margin-bottom: 8px;
+}
+.tag-navy  { background: var(--navy);   color: white; }
+.tag-coral { background: var(--coral);  color: white; }
+.tag-gold  { background: var(--gold);   color: var(--navy); }
+.tag-green { background: var(--green);  color: white; }
+.tag-soft  { background: var(--soft-gold); color: var(--navy); border: 1px solid var(--line); }
+
+/* ── Grid helpers ────────────────────────────────────────────── */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+.g4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+
+/* ── Highlight block ─────────────────────────────────────────── */
+.hl {
+  border-left: 4px solid var(--coral);
+  background: var(--soft-coral);
+  border-radius: 0 10px 10px 0;
+  padding: 10px 14px;
+  font-size: 10.5px;
+  color: var(--ink);
+  line-height: 1.5;
+}
+.hl.green { border-left-color: var(--green); background: var(--soft-green); }
+.hl.gold  { border-left-color: var(--gold);  background: var(--soft-gold); }
+.hl.navy  { border-left-color: var(--navy);  background: var(--soft-blue); }
+.hl b { color: var(--navy); }
+
+/* ── Pill list ───────────────────────────────────────────────── */
+.pill-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 6px; }
+.pill {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 4px 11px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.pill.coral { background: var(--soft-coral); color: var(--coral); border-color: #EFBCB2; }
+.pill.green { background: var(--soft-green); color: var(--green); border-color: #B2D9C8; }
+
+/* ── Status flow chips ───────────────────────────────────────── */
+.status-flow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.status-chip {
+  background: var(--paper);
+  border: 1.5px solid var(--navy);
+  border-radius: 8px;
+  padding: 5px 9px;
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--navy);
+  text-align: center;
+}
+.status-chip.coral { border-color: var(--coral); color: var(--coral); }
+.status-chip.green { border-color: var(--green); color: var(--green); }
+.status-chip.gold  { border-color: var(--gold);  color: #8B6200; }
+.status-arrow { font-size: 12px; color: var(--coral); font-weight: 700; }
+
+/* ── Cover slide (01) ────────────────────────────────────────── */
+.cover-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 30px 40px 40px;
+  background: linear-gradient(135deg, var(--cream) 60%, #F2E5C4 100%);
+}
+.cover-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--coral);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.cover-title {
+  font-size: 52px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+  letter-spacing: -.04em;
+  margin-bottom: 6px;
+}
+.cover-sub {
+  font: italic 500 18px/1.3 var(--serif);
+  color: var(--coral);
+  margin-bottom: 20px;
+}
+.cover-desc {
+  font-size: 11px;
+  color: var(--muted);
+  max-width: 420px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.cover-stack {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.stack-chip {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.cover-meta {
+  position: absolute;
+  bottom: 40px;
+  right: 32px;
+  text-align: right;
+}
+.cover-meta .label { font-size: 9px; color: var(--muted); }
+.cover-meta .value { font-size: 14px; font-weight: 700; color: var(--navy); }
+
+/* ── Decorative accent shape ─────────────────────────────────── */
+.cover-accent {
+  position: absolute;
+  top: -30px; right: -30px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #F5E8BE 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Print ───────────────────────────────────────────────────── */
+@media print {
+  body { background: white; }
+  .slide { margin: 0; box-shadow: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 01 · Capa
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="cover-body">
+    <div class="cover-accent"></div>
+    <div class="cover-eyebrow">🎀 Projeto Integrador · DSM 4º semestre · FATEC</div>
+    <div class="cover-title">PM<br>Bem-Casados</div>
+    <div class="cover-sub">Vitrine digital e gestão de encomendas<br>para uma confeiteira autônoma</div>
+    <div class="cover-desc">
+      Sistema completo: do pedido à entrega — com catálogo público, jornada guiada de encomenda,
+      painel administrativo e analytics de produção.
+    </div>
+    <div class="cover-stack">
+      <span class="stack-chip">☕ Java · Spring Boot</span>
+      <span class="stack-chip">🅰️ Angular · TypeScript</span>
+      <span class="stack-chip">📱 Ionic</span>
+      <span class="stack-chip">🐘 PostgreSQL</span>
+      <span class="stack-chip">🐍 Python · Analytics</span>
+      <span class="stack-chip">🐳 Docker</span>
+    </div>
+    <div class="cover-meta">
+      <div class="label">Entrega final</div>
+      <div class="value">13 / 11 / 2026</div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">01 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 02 · O problema
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">🔍 Contexto</div>
+    <h2>O problema que motivou o sistema</h2>
+    <p class="lede">Uma confeiteira autônoma gerencia tudo manualmente — catálogo, encomendas, estoque e negociação — sem nenhuma ferramenta dedicada.</p>
+    <div class="g3" style="margin-bottom:12px">
+      <div class="card">
+        <div class="card-title">📋 Pedidos por mensagem</div>
+        <p>Solicitações chegam pelo WhatsApp de forma desestruturada. Sem histórico organizado, confirmações se perdem e detalhes precisam ser renegociados.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">📦 Estoque na memória</div>
+        <p>Insumos são controlados mentalmente ou em cadernos. Faltam alertas de estoque mínimo e rastreamento de consumo real por pedido.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">📊 Sem visibilidade</div>
+        <p>Não existe indicador de quais produtos são mais pedidos, qual o período de maior demanda nem quanto custa produzir cada encomenda.</p>
+      </div>
+    </div>
+    <div class="hl">
+      <b>Consequência:</b> tempo gasto em coordenação reduz o tempo disponível para produção — e qualquer engano em pedido ou estoque gera prejuízo direto para a cliente.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">02 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 03 · A cliente e o público
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">👥 Perfis</div>
+    <h2>Quem usa o sistema</h2>
+    <p class="lede">Dois perfis com necessidades radicalmente diferentes — o sistema atende a ambos com ambientes separados.</p>
+    <div class="g2">
+      <div class="card">
+        <div class="tag tag-navy">🎂 Administradora</div>
+        <div class="card-title">A confeiteira (única usuária admin)</div>
+        <ul class="card" style="border:0;padding:0;margin-top:6px">
+          <li>Gerencia catálogo de produtos</li>
+          <li>Acompanha e atualiza status dos pedidos</li>
+          <li>Controla estoque de insumos</li>
+          <li>Negocia valores e datas com os clientes</li>
+          <li>Consulta indicadores de produção e demanda</li>
+        </ul>
+        <div class="hl navy" style="margin-top:10px;font-size:10px">Acesso protegido por senha + JWT escopo <b>ADMIN</b></div>
+      </div>
+      <div class="card">
+        <div class="tag tag-coral">🎁 Cliente final</div>
+        <div class="card-title">Quem faz a encomenda</div>
+        <ul class="card" style="border:0;padding:0;margin-top:6px">
+          <li>Navega na vitrine de produtos</li>
+          <li>Monta a encomenda em passos guiados</li>
+          <li>Recebe estimativa de valor antes de confirmar</li>
+          <li>Finaliza via WhatsApp para negociação</li>
+          <li>Acompanha o status do próprio pedido</li>
+        </ul>
+        <div class="hl" style="margin-top:10px;font-size:10px">Login sem senha — link enviado por e-mail (JWT escopo <b>CLIENTE</b>)</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">03 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 04 · A solução
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">💡 A solução</div>
+    <h2>Dois ambientes, uma plataforma</h2>
+    <p class="lede">O sistema separa claramente o que é público (vitrine + encomenda + acompanhamento) do que é administrativo (painel, estoque, analytics).</p>
+    <div class="g2">
+      <div class="card">
+        <div class="tag tag-coral">🛍️ Ambiente do cliente</div>
+        <ul style="padding-left:14px;margin-top:4px">
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:4px">Navegar no catálogo de produtos</li>
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:4px">Montar e enviar a encomenda</li>
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:4px">Receber estimativa de valor</li>
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:4px">Acompanhar meu pedido</li>
+          <li style="font-size:10.5px;color:var(--muted)">Acesso sem senha — link de login enviado por e-mail</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tag tag-navy">⚙️ Painel administrativo</div>
+        <ul style="padding-left:14px;margin-top:4px">
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:4px">Gerenciar pedidos e status</li>
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:4px">Controlar produtos e ficha técnica</li>
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:4px">Acompanhar estoque de insumos</li>
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:4px">Registrar fornecedores e compras</li>
+          <li style="font-size:10.5px;color:var(--muted)">Consultar indicadores de produção</li>
+        </ul>
+      </div>
+    </div>
+    <div class="hl navy" style="margin-top:12px">
+      <b>Limite consciente do MVP:</b> a negociação de valores e datas continua pelo WhatsApp — o sistema organiza a solicitação, não substitui a conversa com a cliente.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">04 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 05 · Login sem senha
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">🔑 Acesso do cliente</div>
+    <h2>Por que não pedir senha pro cliente</h2>
+    <p class="lede">Quem faz esse tipo de encomenda não entra no sistema todo dia — e ninguém quer travar numa senha esquecida no meio da correria de fechar um casamento ou uma festa.</p>
+    <div class="g2" style="margin-bottom:12px">
+      <div class="card" style="border-left:4px solid var(--coral)">
+        <div class="tag tag-coral">😩 O problema</div>
+        <p>O cliente típico usa o sistema poucas vezes — às vezes uma única vez por evento, com meses de intervalo. Nesse tempo todo, é normal esquecer a senha que cadastrou. E como geralmente está resolvendo tudo em cima da hora, qualquer tela de "esqueci minha senha" vira motivo de desistência — ou de voltar a resolver tudo pelo WhatsApp mesmo.</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--green)">
+        <div class="tag tag-green">✅ A solução</div>
+        <p>Em vez de senha, o cliente informa o WhatsApp ou o e-mail que já usou no pedido, recebe um link por e-mail e clica — pronto, já está vendo o próprio pedido. Não existe senha pra esquecer porque não existe senha. É rápido pra quem está com pressa e simples pra quem só usa o sistema de vez em quando.</p>
+      </div>
+    </div>
+    <div class="status-flow" style="margin-bottom:12px">
+      <div class="status-chip">📧<br>Pede o acesso</div>
+      <div class="status-arrow">→</div>
+      <div class="status-chip gold">✉️<br>Recebe o link<br>por e-mail</div>
+      <div class="status-arrow">→</div>
+      <div class="status-chip green">🔓<br>Entra direto<br>no pedido</div>
+    </div>
+    <div class="hl gold">
+      <b>Detalhe de segurança, em linguagem simples:</b> o link funciona uma única vez e expira rápido (cerca de 15 minutos). Se o cliente demorar ou já tiver usado, basta pedir um novo — sem risco de alguém reaproveitar um link antigo.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">05 / 17</div>
+  </div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 06 · Jornada do cliente
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">🗺️ Jornada</div>
+    <h2>Monte sua encomenda em seis passos</h2>
+    <p class="lede">A jornada é guiada em passos curtos — sem formulário longo. Em cada passo o cliente vê exatamente o que precisa decidir.</p>
+    <div class="g3" style="margin-bottom:12px">
+      <div class="card">
+        <div class="tag tag-soft">01</div>
+        <div class="card-title">👀 Vitrine</div>
+        <p>Catálogo público por categoria. Fotos, descrição e faixa de preço por quantidade.</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-soft">02</div>
+        <div class="card-title">🔢 Produto + quantidade</div>
+        <p>Escolha o produto e a faixa (50, 100, 250 unidades). Acima de 250, contato direto pelo WhatsApp.</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-soft">03</div>
+        <div class="card-title">💰 Estimativa</div>
+        <p>Valor inicial calculado automaticamente — não é orçamento final, é ponto de partida para a negociação.</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-soft">04</div>
+        <div class="card-title">💍 Tipo de evento</div>
+        <p>Casamento, aniversário, formatura ou outro. Contexto importante para personalização.</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-soft">05</div>
+        <div class="card-title">🎀 Personalização</div>
+        <p>Detalhes da encomenda em texto livre. Cores, fitas, mensagem, tema.</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-soft">06</div>
+        <div class="card-title">💬 Envio</div>
+        <p>Resumo do pedido enviado estruturado para o WhatsApp da confeiteira — negociação começa aqui.</p>
+      </div>
+    </div>
+    <div style="text-align:center;font:italic 500 11px/1.4 var(--serif);color:var(--coral)">
+      "monte sua encomenda" — jornada guiada, não formulário
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">06 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 07 · Gestão de pedidos
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">📋 Pedidos</div>
+    <h2>Ciclo de vida do pedido</h2>
+    <p class="lede">Sete estados fechados — enum no banco de dados. Cada transição é auditada com responsável e motivo.</p>
+    <div class="status-flow" style="margin-bottom:14px">
+      <div class="status-chip">💬<br>SOLICITACAO</div>
+      <div class="status-arrow">→</div>
+      <div class="status-chip gold">⚖️<br>ANALISE_<br>NEGOCIACAO</div>
+      <div class="status-arrow">→</div>
+      <div class="status-chip green">✅<br>CONFIRMACAO</div>
+      <div class="status-arrow">→</div>
+      <div class="status-chip navy">📅<br>AGENDADO</div>
+      <div class="status-arrow">→</div>
+      <div class="status-chip">🧁<br>PRONTO</div>
+      <div class="status-arrow">→</div>
+      <div class="status-chip green">🚩<br>ENTREGUE</div>
+      <div class="status-arrow" style="color:var(--red)">↗</div>
+      <div class="status-chip coral">❌<br>CANCELADO</div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-title">🔑 Regras críticas</div>
+        <ul class="card" style="border:0;padding:0">
+          <li>CANCELADO só alcançável de SOLICITACAO ou ANALISE_NEGOCIACAO</li>
+          <li>Admin pode reabrir CONFIRMACAO → ANALISE_NEGOCIACAO</li>
+          <li>AGENDADO exige <code style="font-size:9px;background:var(--soft-gold);padding:1px 4px;border-radius:4px">data_evento_confirmada</code> preenchida</li>
+          <li>Histórico completo em <code style="font-size:9px;background:var(--soft-gold);padding:1px 4px;border-radius:4px">pedido_status_historico</code></li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">💰 Dois valores separados</div>
+        <p style="margin-bottom:6px"><b>valor_estimado_inicial</b> — calculado automaticamente na jornada "monte sua encomenda". Nunca sobrescrito.</p>
+        <p><b>valor_confirmado</b> — fechado na negociação. Nullable até a confirmação.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">07 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 08 · Prazo e avisos
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">🔔 Acompanhamento e prazos</div>
+    <h2>O pedido não pode mais ficar esquecido</h2>
+    <p class="lede">Antes, depois que o pedido saía pelo WhatsApp, ele podia sumir no meio da conversa. Agora o próprio sistema cobra prazo e avisa as duas pontas antes que isso aconteça.</p>
+    <div class="g2" style="margin-bottom:14px">
+      <div class="card" style="border-left:4px solid var(--coral)">
+        <div class="tag tag-coral">😕 O problema</div>
+        <p>Ter um "status" guardado no sistema não é a mesma coisa que acompanhar o pedido de verdade. Um pedido em negociação podia ficar parado por dias sem ninguém perceber — o cliente não sabia se devia cobrar, e a administradora podia perder aquele pedido de vista no meio de tantas conversas.</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--green)">
+        <div class="tag tag-green">💡 A solução</div>
+        <p>O sistema passa a contar os dias desde a última movimentação de cada pedido. Se ninguém mexer nele, avisos automáticos entram em ação — um pra quem devia dar andamento, outro pra quem está esperando resposta.</p>
+      </div>
+    </div>
+    <div class="status-flow" style="margin-bottom:14px">
+      <div class="status-chip gold">🔔<br>Dia 2<br>sem mexer</div>
+      <div class="status-arrow">→</div>
+      <div class="status-chip coral">📩<br>Dia 3<br>sem mexer</div>
+      <div class="status-arrow">→</div>
+      <div class="status-chip" style="border-color:var(--red);color:var(--red)">🚫<br>Dia 5<br>sem mexer</div>
+    </div>
+    <div class="g3">
+      <div class="card">
+        <div class="card-title">🔔 Aviso pra administradora</div>
+        <p>Com 2 dias sem nenhuma movimentação, ela recebe um aviso pra dar o próximo passo — por exemplo, mover o pedido pra produção.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">📩 Aviso pro cliente</div>
+        <p>Com 3 dias sem movimentação (2 dias antes do prazo mínimo de cancelamento), o cliente recebe um aviso de que o pedido pode ser cancelado se ninguém responder.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🚫 Cancelamento</div>
+        <p>Se ninguém agir até completar 5 dias parado, o pedido é cancelado automaticamente — regra que já existia, agora com avisos no caminho pra ninguém ser pego de surpresa.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">08 / 17</div>
+  </div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 09 · Privacidade e dados
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker navy">🔒 LGPD</div>
+    <h2>Privacidade por design</h2>
+    <p class="lede">O sistema coleta o mínimo necessário — minimização de dados como princípio de arquitetura, não como ajuste posterior.</p>
+    <div class="g2" style="margin-bottom:12px">
+      <div class="card">
+        <div class="tag tag-green">✅ Coletado no cadastro</div>
+        <ul style="padding-left:14px;margin-top:4px">
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:3px">Nome</li>
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:3px">WhatsApp (identificador único)</li>
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:3px">E-mail (opcional — para magic link)</li>
+          <li style="font-size:10.5px;color:var(--muted)">Consentimento LGPD com timestamp</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="tag tag-coral">🚫 Não coletado no cadastro</div>
+        <ul style="padding-left:14px;margin-top:4px">
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:3px">CEP ou endereço pessoal</li>
+          <li style="font-size:10.5px;color:var(--muted);margin-bottom:3px">Cidade ou bairro de residência</li>
+          <li style="font-size:10.5px;color:var(--muted)">Qualquer dado além do contato mínimo</li>
+        </ul>
+      </div>
+    </div>
+    <div class="hl green" style="margin-bottom:10px">
+      <b>Endereço de entrega/evento</b> é coletado no momento do pedido — não no cadastro. Fica vinculado ao pedido, não ao perfil permanente do cliente.
+    </div>
+    <div class="hl navy" style="margin-bottom:10px">
+      <b>Por que só o endereço da entrega, e não um endereço fixo no perfil?</b> Porque o endereço muda a cada encomenda — hoje é o salão do casamento, na próxima pode ser a casa da festa de aniversário ou o salão da formatura. Guardar um endereço "fixo" no cadastro do cliente não ajudaria em nada (ficaria desatualizado já na encomenda seguinte) e ainda manteria salvo um dado pessoal sem necessidade real — o oposto do que a LGPD pede.
+    </div>
+    <div class="hl gold">
+      <b>A validar com a cliente:</b> prazo de retenção de dados após entrega e texto final do aviso de privacidade exibido no sistema.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">09 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 10 · Arquitetura da solução
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">🏗️ Arquitetura</div>
+    <h2>Camadas e responsabilidades</h2>
+    <p class="lede">Arquitetura em camadas com separação clara entre interfaces, API e dados. Segurança por dois escopos JWT independentes.</p>
+    <div class="g3" style="margin-bottom:12px">
+      <div class="card">
+        <div class="tag tag-coral">Interfaces</div>
+        <div class="card-title">Angular (web) · Ionic (mobile)</div>
+        <p>Vitrine pública e jornada de encomenda no mobile. Painel administrativo exclusivo na web.</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-navy">API · Spring Boot</div>
+        <div class="card-title">Camadas Controller → Service → Repository</div>
+        <p>Regras de negócio centralizadas. Validação de estado no backend — nunca só no front.</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-gold">Dados</div>
+        <div class="card-title">PostgreSQL · Python Analytics</div>
+        <p>Enums nativos, ledger de estoque e ETL Python para indicadores no dashboard.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-bottom:10px">
+      <div class="card-title">🔒 Segurança — dois escopos JWT distintos</div>
+      <div class="g2" style="margin-top:8px">
+        <div class="hl navy" style="font-size:10px">
+          <b>Escopo ADMIN</b> — autenticação por senha (BCrypt). Acessa <code>/api/admin/**</code>. Protegido por <code>AuthGuard</code> no Angular.
+        </div>
+        <div class="hl" style="font-size:10px">
+          <b>Escopo CLIENTE</b> — magic link por e-mail, sem senha. Acessa <code>/api/cliente/**</code>. Protegido por <code>ClienteGuard</code> (separado do admin).
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">10 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 11 · Stack tecnológica
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">🛠️ Stack</div>
+    <h2>Tecnologias e justificativa</h2>
+    <p class="lede">Cada escolha é justificada pelo contexto — currículo do semestre, compatibilidade entre camadas e viabilidade de entrega.</p>
+    <div class="g2">
+      <div class="card">
+        <div class="card-title">☕ Backend — Java 21 + Spring Boot</div>
+        <p>Ecossistema maduro, Spring Security nativo para JWT, Spring Data JPA para mapeamento relacional. Hibernate com <code style="font-size:9px">ddl-auto=validate</code> — o banco é a fonte da verdade.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🅰️ Frontend — Angular + TypeScript</div>
+        <p>Framework estruturado com roteamento, guards e HttpClient. Tipagem compartilhada com os DTOs da API reduz erros de integração.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">📱 Mobile — Ionic + Angular</div>
+        <p>Reaproveitamento de lógica e serviços do Angular. Jornada do cliente no mobile; painel administrativo exclusivo da web.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🐘 Dados — PostgreSQL + Python</div>
+        <p>Enums nativos, integridade referencial e suporte a <code style="font-size:9px">CHECK</code> constraints complexas. Python com pandas + SQLAlchemy para ETL e indicadores.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🐳 DevOps — Docker + GitHub Actions</div>
+        <p>Banco containerizado garante ambiente idêntico para o time. CI valida backend e frontend a cada push.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">📐 Modelagem — dbdiagram.io</div>
+        <p>DBML como artefato versionável. Exportação SQL com os tipos e relacionamentos já mapeados, revisados antes da implementação.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">11 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 12 · Banco de dados
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">🐘 Banco</div>
+    <h2>Modelagem — decisões importantes</h2>
+    <p class="lede">13 tabelas, 4 tipos enum nativos, ledger de estoque. Cada decisão tem fundamento técnico ou legal.</p>
+    <div class="g2" style="margin-bottom:12px">
+      <div class="card">
+        <div class="tag tag-green">Enums nativos (CREATE TYPE)</div>
+        <p><code style="font-size:9px">status_pedido</code>, <code style="font-size:9px">tipo_movimentacao_estoque</code>, <code style="font-size:9px">origem_movimentacao_estoque</code>, <code style="font-size:9px">regiao_fornecedor</code> — integridade garantida pelo Postgres, não só pela aplicação.</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-navy">Ledger de estoque</div>
+        <p><code style="font-size:9px">movimentacao_estoque</code> registra toda entrada e saída. <code style="font-size:9px">insumo.quantidade_estoque</code> é saldo materializado — nunca editado diretamente. Sustenta o "consumo real" no dashboard.</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-coral">Minimização LGPD</div>
+        <p>Tabela <code style="font-size:9px">cliente</code> sem endereço pessoal. Endereço de entrega/evento só em <code style="font-size:9px">pedido.local_*</code> — dado contextual, não perfil permanente.</p>
+      </div>
+      <div class="card">
+        <div class="tag tag-gold">Magic link (sem senha)</div>
+        <p><code style="font-size:9px">cliente_login_token</code>: token UUID de uso único com expiração curta. Sem hash de senha armazenado — superfície de ataque menor.</p>
+      </div>
+    </div>
+    <div class="hl navy" style="font-size:10px">
+      <b>Auditoria:</b> <code style="font-size:9px">pedido_status_historico</code> registra cada transição de status com responsável e motivo — rastreabilidade completa do ciclo de vida do pedido.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">12 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 13 · Escopo — MVP
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker navy">📏 Escopo</div>
+    <h2>O que entra e o que fica fora do MVP</h2>
+    <p class="lede">Escopo reduzido intencionalmente — o que entra deve funcionar dentro do semestre. Fora do escopo não é limitação, é decisão.</p>
+    <div class="g2">
+      <div class="card" style="border-left:4px solid var(--green)">
+        <div class="tag tag-green">✅ Entra no MVP</div>
+        <div class="pill-row" style="margin-top:4px">
+          <span class="pill green">Vitrine digital</span>
+          <span class="pill green">Jornada guiada</span>
+          <span class="pill green">Login sem senha (magic link)</span>
+          <span class="pill green">Acompanhar meu pedido</span>
+          <span class="pill green">WhatsApp para negociação</span>
+          <span class="pill green">Painel administrativo</span>
+          <span class="pill green">7 status de pedido</span>
+          <span class="pill green">Estoque + alerta mínimo</span>
+          <span class="pill green">Ficha técnica de produtos</span>
+          <span class="pill green">Ledger de movimentação</span>
+          <span class="pill green">Indicadores básicos</span>
+          <span class="pill green">Docker + CI/CD</span>
+        </div>
+      </div>
+      <div class="card" style="border-left:4px solid var(--coral)">
+        <div class="tag tag-coral">🚫 Fora do escopo</div>
+        <div class="pill-row" style="margin-top:4px">
+          <span class="pill coral">Pagamento online</span>
+          <span class="pill coral">Marketplace</span>
+          <span class="pill coral">Chat próprio</span>
+          <span class="pill coral">Rastreamento em tempo real</span>
+          <span class="pill coral">ERP / fiscal completo</span>
+          <span class="pill coral">IA/ML avançado</span>
+          <span class="pill coral">Logística complexa</span>
+          <span class="pill coral">WhatsApp Business API</span>
+          <span class="pill coral">Recovery automatizado de acesso</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">13 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 14 · Analytics
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">📊 Analytics</div>
+    <h2>Transformar pedidos em indicadores</h2>
+    <p class="lede">Pipeline Python consome o PostgreSQL e produz indicadores que a confeiteira usa para decisões de produção e compra.</p>
+    <div style="display:flex;gap:10px;align-items:center;margin-bottom:14px;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 16px">
+      <div style="text-align:center;min-width:80px"><div style="font-size:22px">🐘</div><div style="font-size:9px;color:var(--muted);margin-top:2px">PostgreSQL</div></div>
+      <div style="font-size:16px;color:var(--coral)">→</div>
+      <div style="text-align:center;min-width:80px"><div style="font-size:22px">🔧</div><div style="font-size:9px;color:var(--muted);margin-top:2px">ETL Python</div></div>
+      <div style="font-size:16px;color:var(--coral)">→</div>
+      <div style="text-align:center;min-width:80px"><div style="font-size:22px">🐍</div><div style="font-size:9px;color:var(--muted);margin-top:2px">pandas + SQLAlchemy</div></div>
+      <div style="font-size:16px;color:var(--coral)">→</div>
+      <div style="text-align:center;min-width:80px"><div style="font-size:22px">📈</div><div style="font-size:9px;color:var(--muted);margin-top:2px">Indicadores</div></div>
+      <div style="font-size:16px;color:var(--coral)">→</div>
+      <div style="text-align:center;min-width:80px"><div style="font-size:22px">📋</div><div style="font-size:9px;color:var(--muted);margin-top:2px">Dashboard</div></div>
+    </div>
+    <div class="g3">
+      <div class="card">
+        <div class="card-title">📦 Volume de encomendas</div>
+        <p>Pedidos por período, eventos mais frequentes, ticket médio. Baseado em <code style="font-size:9px">pedido</code> + <code style="font-size:9px">item_pedido</code>.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🏆 Produtos mais pedidos</div>
+        <p>Ranking de produtos e categorias. Quantidade vendida vs. faixa de preço escolhida.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🧂 Consumo real de insumos</div>
+        <p>Ledger de <code style="font-size:9px">movimentacao_estoque</code> com origem <code style="font-size:9px">PRODUCAO_PEDIDO</code> — consumo real, não estimado.</p>
+      </div>
+    </div>
+    <div class="hl navy" style="margin-top:10px;font-size:10px">
+      <b>Escopo:</b> previsão simples por média móvel. Sem Machine Learning complexo — a base de dados do MVP ainda é pequena para modelos sofisticados.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">14 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 15 · Cronograma
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker">📅 Cronograma</div>
+    <h2>Seis frentes, uma entrega</h2>
+    <p class="lede">A ordem importa: banco → API → interfaces → dados → deploy. Cada frente depende da anterior.</p>
+    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px">
+      <div class="card" style="border-top:4px solid var(--blue,var(--navy));text-align:center">
+        <div style="font-size:18px;margin-bottom:4px">🏗️</div>
+        <div class="card-title" style="text-align:center;font-size:10px">Fundação</div>
+        <p style="font-size:9px;text-align:center">GitHub · banco · CLIs · Docker</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--gold);text-align:center">
+        <div style="font-size:18px;margin-bottom:4px">☕</div>
+        <div class="card-title" style="text-align:center;font-size:10px">Backend</div>
+        <p style="font-size:9px;text-align:center">Spring Boot · JPA · JWT</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--coral);text-align:center">
+        <div style="font-size:18px;margin-bottom:4px">🅰️</div>
+        <div class="card-title" style="text-align:center;font-size:10px">Frontend</div>
+        <p style="font-size:9px;text-align:center">Angular · Ionic · Guards</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--green);text-align:center">
+        <div style="font-size:18px;margin-bottom:4px">🐍</div>
+        <div class="card-title" style="text-align:center;font-size:10px">Analytics</div>
+        <p style="font-size:9px;text-align:center">ETL · Python · Dashboard</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--navy);text-align:center">
+        <div style="font-size:18px;margin-bottom:4px">🧪</div>
+        <div class="card-title" style="text-align:center;font-size:10px">QA</div>
+        <p style="font-size:9px;text-align:center">Testes · CI verde · Deploy</p>
+      </div>
+      <div class="card" style="border-top:4px solid var(--coral);text-align:center">
+        <div style="font-size:18px;margin-bottom:4px">🎁</div>
+        <div class="card-title" style="text-align:center;font-size:10px">Entrega</div>
+        <p style="font-size:9px;text-align:center">Docs · validação · 13/11</p>
+      </div>
+    </div>
+    <div class="hl green">
+      <b>Regra do time:</b> uma etapa só é considerada pronta quando o checklist dela estiver verde — o código funcionando é condição necessária, não suficiente.
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">15 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 16 · Riscos e pendências
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker coral">⚠️ Riscos</div>
+    <h2>Pontos de atenção e pendências abertas</h2>
+    <p class="lede">Decisões técnicas intencionalmente deixadas em aberto — requerem validação com a cliente antes de implementar.</p>
+    <div class="g2" style="margin-bottom:12px">
+      <div class="card" style="border-left:4px solid var(--gold)">
+        <div class="card-title">⏱️ Timeout de cancelamento</div>
+        <p>Prazo = <code style="font-size:9px">min(5 dias, data_evento − 2 dias)</code> a partir de ANALISE_NEGOCIACAO. <b>Piso mínimo para eventos com menos de 2 dias não está definido.</b> Não implementar o job de cancelamento automático sem validar esse caso com a cliente.</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--gold)">
+        <div class="card-title">🗂️ Retenção de dados LGPD</div>
+        <p>Por quanto tempo manter dados de clientes e pedidos após a entrega? Texto final do aviso de privacidade exibido no sistema. <b>A validar com a cliente — não decidir arbitrariamente.</b></p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--coral)">
+        <div class="card-title">📧 Fornecedor de e-mail</div>
+        <p>O magic link depende de um SMTP configurado. Avaliar serviço transacional (Resend, Mailgun, SES) e custo antes de ir para produção.</p>
+      </div>
+      <div class="card" style="border-left:4px solid var(--coral)">
+        <div class="card-title">🔢 Rate limit no magic link</div>
+        <p>Implementar limitação por <code style="font-size:9px">cliente_id</code> e por IP para evitar abuso de emissão de tokens. Definir thresholds adequados para o volume esperado.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">16 / 17</div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SLIDE 17 · Próximos passos
+══════════════════════════════════════════════════════════════════ -->
+<div class="slide">
+  <div style="height:6px;background:linear-gradient(90deg,var(--navy) 0 34%,var(--coral) 34% 62%,var(--gold) 62% 100%);flex:none"></div>
+  <div class="slide-body">
+    <div class="kicker navy">🚀 Próximos passos</div>
+    <h2>De onde partimos e para onde vamos</h2>
+    <p class="lede">O schema está definido, o manual técnico está atualizado. O próximo passo é mão na massa.</p>
+    <div class="g3" style="margin-bottom:14px">
+      <div class="card" style="border-top:4px solid var(--green)">
+        <div class="card-title">✅ Feito</div>
+        <ul style="padding-left:14px;margin-top:4px">
+          <li style="font-size:10px;color:var(--muted);margin-bottom:3px">Schema v4 finalizado e documentado</li>
+          <li style="font-size:10px;color:var(--muted);margin-bottom:3px">Escopo do MVP fechado</li>
+          <li style="font-size:10px;color:var(--muted);margin-bottom:3px">Manual técnico de execução atualizado</li>
+          <li style="font-size:10px;color:var(--muted)">Fluxos de autenticação definidos</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:4px solid var(--gold)">
+        <div class="card-title">🔄 Em andamento</div>
+        <ul style="padding-left:14px;margin-top:4px">
+          <li style="font-size:10px;color:var(--muted);margin-bottom:3px">Diagrama no dbdiagram.io</li>
+          <li style="font-size:10px;color:var(--muted);margin-bottom:3px">Geração do schema.sql com CHECK</li>
+          <li style="font-size:10px;color:var(--muted);margin-bottom:3px">Estrutura do repositório GitHub</li>
+          <li style="font-size:10px;color:var(--muted)">Configuração do ambiente Docker</li>
+        </ul>
+      </div>
+      <div class="card" style="border-top:4px solid var(--coral)">
+        <div class="card-title">📋 A fazer</div>
+        <ul style="padding-left:14px;margin-top:4px">
+          <li style="font-size:10px;color:var(--muted);margin-bottom:3px">Validar pendências com a cliente</li>
+          <li style="font-size:10px;color:var(--muted);margin-bottom:3px">Implementar API Spring Boot</li>
+          <li style="font-size:10px;color:var(--muted);margin-bottom:3px">Construir vitrine Angular + Ionic</li>
+          <li style="font-size:10px;color:var(--muted)">Pipeline Python + dashboard</li>
+        </ul>
+      </div>
+    </div>
+    <div class="hl green" style="text-align:center;font-size:11px">
+      🎯 <b>Meta:</b> sistema rodando e validado com a cliente até <b>13/11/2026</b>
+    </div>
+  </div>
+  <div class="slide-footer">
+    <div class="footer-label"><b>PM Bem-Casados</b> · Mapa de execução do projeto</div>
+    <div class="page-badge">17 / 17</div>
+  </div>
+</div>
+
+</body>
+</html>
