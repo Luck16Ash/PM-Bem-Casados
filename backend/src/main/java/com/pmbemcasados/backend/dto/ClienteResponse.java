@@ -1,5 +1,10 @@
 package com.pmbemcasados.backend.dto;
 
-public class ClienteResponse {
-    
+import java.util.UUID;
+
+public record ClienteResponse(
+        UUID id,
+        String nome,
+        String whatsapp,
+        String email) {
 }

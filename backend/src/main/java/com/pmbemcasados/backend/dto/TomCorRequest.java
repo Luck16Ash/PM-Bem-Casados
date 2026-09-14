@@ -1,5 +1,10 @@
 package com.pmbemcasados.backend.dto;
 
-public class TomCorRequest {
-    
+import jakarta.validation.constraints.NotBlank;
+
+public record TomCorRequest(
+
+        @NotBlank String nome
+
+) {
 }

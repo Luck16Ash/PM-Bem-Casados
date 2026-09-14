@@ -1,5 +1,16 @@
 package com.pmbemcasados.backend.dto;
 
-public class ClienteRequest {
-    
+import jakarta.validation.constraints.NotBlank;
+
+public record ClienteRequest(
+
+        @NotBlank String nome,
+
+        @NotBlank String whatsapp,
+
+        String email,
+
+        Boolean consentimentoLgpd
+
+) {
 }

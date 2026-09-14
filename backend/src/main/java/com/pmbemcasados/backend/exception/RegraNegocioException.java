@@ -1,5 +1,8 @@
 package com.pmbemcasados.backend.exception;
 
-public class RegraNegocioException {
-    
+public class RegraNegocioException extends RuntimeException {
+
+    public RegraNegocioException(String mensagem) {
+        super(mensagem);
+    }
 }
